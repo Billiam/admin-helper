@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "AdminTime",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Admin entry timesheet helper for mainframe",
+    "description": "The description of the application"
+  }
+}

@@ -1,0 +1,16 @@
+.data_table tr.admin_helper_highlight td {
+  background-color: #ceffcc; 
+}
+
+#admin_helper {
+    border: 1px solid #d8d8cf;
+    border-radius:5px;
+    margin-bottom: 10px;
+    background: #f0f0e7;
+    padding: 15px;
+    line-height: 1.5;
+}
+
+#admin_helper span {
+	font-weight:bold;
+}
