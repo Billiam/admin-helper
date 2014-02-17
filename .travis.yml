@@ -8,3 +8,5 @@ before_script:
     - npm install -g grunt-cli
     - bower install
     - cd test && bower install && cd ..
+
+script: grunt mocha
