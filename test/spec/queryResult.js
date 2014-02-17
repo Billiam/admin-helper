@@ -29,6 +29,28 @@
                 expect(query().result).to.equal(snapshot());
             });
         });
+        describe('#length', function() {
+            context('when query data is empty', function() {
+                var query = local(function() {
+                    return new QueryResult(mockSnapshot([]));
+                });
+
+                it('has a zero length', function() {
+                    expect(query()).to.have.property('length', 0);
+                });
+            });
+
+            context('when query has results', function() {
+                var query = local(function() {
+                    return new QueryResult(mockSnapshot(['aaa','bbb']));
+                });
+
+                it('has matching length', function() {
+                    expect(query()).to.have.property('length', 2);
+                });
+            });
+        });
+
         describe('#map', function() {
             context('when query data is empty', function() {
                 var query = local(function() {

@@ -14,6 +14,8 @@
  */
 var QueryResult = function(result) {
     this.result = result;
+    
+    this.length = result.snapshotLength;
 };
 
 /**
