@@ -106,7 +106,7 @@ var Xpath = {
      * @private
      */
     _evaluate: function(path, source, multi) {
-        source = source == null ? document.body : source;
+        source = (source === null || source === undefined) ? document.body : source;
 
         var queryType = multi ? XPathResult.ORDERED_NODE_SNAPSHOT_TYPE : XPathResult.FIRST_ORDERED_NODE_TYPE;
 
@@ -201,7 +201,7 @@ var Template = {
             .replace(/'/g, '&#39;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
-            .replace(/\//g, "&#x2F;");
+            .replace(/\//g, '&#x2F;');
     }
 };
 
