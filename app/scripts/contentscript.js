@@ -42,7 +42,7 @@ QueryResult.prototype.forEach = function(callback) {
  *
  * @method map
  * @param {callback} callback Method to run agains each result item
- * @return Array Mapped result array
+ * @return {Array} Mapped result array
  * @example
  *     var allHrefs = result.map(function(item) {
  *         return item.getAttribute('href');
@@ -56,6 +56,18 @@ QueryResult.prototype.map = function(callback) {
     });
 
     return result;
+};
+
+/**
+ * Immediately fetch all query result items
+ *
+ * @method all
+ * @returns {Array} Query items
+ */
+QueryResult.prototype.all = function() {
+    return this.map(function(item) {
+        return item;
+    });
 };
 
 /**

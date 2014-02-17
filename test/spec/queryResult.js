@@ -51,6 +51,40 @@
             });
         });
 
+        describe('#all', function() {
+            context('when query data is empty', function() {
+                var query = local(function() {
+                    return new QueryResult(mockSnapshot([]));
+                });
+
+                var result = local(function() {
+                    return query().all();
+                });
+
+                it('returns an empty array', function() {
+                    expect(result()).to.eql([]);
+                });
+            });
+
+            context('when query has results', function() {
+                var query = local(function() {
+                    return new QueryResult(mockSnapshot([
+                        5,
+                        10,
+                        50
+                    ]));
+                });
+
+                var result = local(function() {
+                    return query().all();
+                });
+
+                it('applies callback to data items', function() {
+                    expect(result()).to.eql([5, 10, 50]);
+                });
+            });
+        });
+
         describe('#map', function() {
             context('when query data is empty', function() {
                 var query = local(function() {
