@@ -151,7 +151,7 @@ var Template = {
     render: function (template, data) {
         for(var key in data) {
             if(data.hasOwnProperty(key)) {
-                template=template.replace(new RegExp('{'+key+'}','g'), data[key]);
+                template=template.replace(new RegExp('{'+key+'}','g'), this._escape(data[key]));
             }
         }
         return template;
@@ -179,7 +179,7 @@ var Template = {
         var output = '';
         for (var key in data) {
             if(data.hasOwnProperty(key)) {
-                output += Template.render(template, {key: key, value: this._escape(data[key])});
+                output += Template.render(template, {key: key, value:data[key]});
             }
         }
         return output;
@@ -193,9 +193,13 @@ var Template = {
      * @private
      */
     _escape: function(html) {
-        var pre = document.createElement('pre');
-        pre.appendChild(document.createTextNode( html ));
-        return pre.innerHTML;
+        return String(html)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\//g, "&#x2F;");
     }
 };
 
@@ -293,7 +297,7 @@ var Summarize = {
 
             if (label) {
                 var hourNode = Xpath.find(self.HOUR_CELL, row);
-                var hours = hourNode.textContent * 1.0;
+                var hours = hourNode.textContent * 1;
                 if (totals[label[1]] === undefined) {
                     totals[label[1]] = 0;
                 }
