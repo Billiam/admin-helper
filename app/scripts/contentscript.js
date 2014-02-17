@@ -14,7 +14,7 @@
  */
 var QueryResult = function(result) {
     this.result = result;
-    
+
     this.length = result.snapshotLength;
 };
 
@@ -106,7 +106,7 @@ var Xpath = {
      * @private
      */
     _evaluate: function(path, source, multi) {
-        source = source === undefined ? document.body : source;
+        source = source == null ? document.body : source;
 
         var queryType = multi ? XPathResult.ORDERED_NODE_SNAPSHOT_TYPE : XPathResult.FIRST_ORDERED_NODE_TYPE;
 
