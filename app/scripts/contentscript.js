@@ -308,6 +308,31 @@ var Summarize = {
     },
 
     /**
+     * Create a new data object with fixed decimal values
+     *
+     * @method _formatTotals
+     * @param {Object} totals Hour totals object to clone
+     * @param {Number} [decimals=2] Number of decimal places for new total object
+     * @returns {Object} Formatted totals object
+     * @private
+     */
+    _formatTotals: function(totals, decimals) {
+        if (decimals === undefined) {
+            decimals = 2;
+        }
+
+        var formattedTotals = {};
+
+        for(var key in totals) {
+            if (totals.hasOwnProperty(key)) {
+                formattedTotals[key] = totals[key].toFixed(decimals);
+            }
+        }
+
+        return formattedTotals;
+    },
+
+    /**
      * Generate HTML for hour output and insert into the DOM
      *
      * @method _render
@@ -317,9 +342,10 @@ var Summarize = {
      */
     _render: function(totals) {
         var summary = document.createElement('div');
+        var formattedTotals = this._formatTotals(totals);
 
         summary.innerHTML = Template.render('<ul id="admin_helper">{items}</ul>', {
-            items: Template.renderObject('<li>{key}: <span class="admin_helper_hours">{value}</span>', totals)
+            items: Template.renderObject('<li>{key}: <span class="admin_helper_hours">{value}</span>', formattedTotals)
         });
 
         var entries = document.getElementById('TSEntryInline');
