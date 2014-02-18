@@ -150,6 +150,7 @@ var Template = {
      * @method render
      * @param {String} template Template
      * @param {Object|Array} data Template variables
+     * @param {Boolean} raw If true, input will not be HTML escaped
      * @return {String}
      * @example
      *     var html = Template.render(
@@ -162,10 +163,12 @@ var Template = {
      *     console.log(html);
      *     //> <b>Rudy</b> - Sysop
      */
-    render: function (template, data) {
+    render: function (template, data, raw) {
         for(var key in data) {
             if(data.hasOwnProperty(key)) {
-                template=template.replace(new RegExp('{'+key+'}','g'), this._escape(data[key]));
+                var value = raw ? data[key] : this._escape(data[key]);
+
+                template=template.replace(new RegExp('{'+key+'}','g'), value);
             }
         }
         return template;
@@ -177,6 +180,7 @@ var Template = {
      * @method renderObject
      * @param {String} template Template
      * @param {Object|Array} data Template variables
+     * @param {Boolean} raw If true, input will not be HTML escaped
      * @return {String}
      * @example
      *     var html = Template.renderObject(
@@ -189,11 +193,11 @@ var Template = {
      *     console.log(html);
      *     //> <span><b>Rudy</b> - Sysop</span><span><b>Charles</b> - DBA</span>
      */
-    renderObject: function(template, data) {
+    renderObject: function(template, data, raw) {
         var output = '';
         for (var key in data) {
             if(data.hasOwnProperty(key)) {
-                output += Template.render(template, {key: key, value:data[key]});
+                output += Template.render(template, {key: key, value:data[key]}, raw);
             }
         }
         return output;

@@ -14,29 +14,56 @@
         );
 
         describe('.render', function () {
-            var result = local(function() {
-                return Template.render(template(), templateVars());
+            context('when escaping html', function() {
+                var result = local(function() {
+                    return Template.render(template(), templateVars());
+                });
+
+                it ('escapes and interpolates parameters into templates', function() {
+                    expect(result()).to.equal('banana : <b>foo &lt;&gt;</b>');
+                });
             });
 
-            it ('interpolates parameters into templates', function() {
-                expect(result()).to.equal('banana : <b>foo &lt;&gt;</b>');
+            context('when not escaping html', function() {
+                var result = local(function() {
+                    return Template.render(template(), templateVars(), true);
+                });
+
+                it ('interpolates parameters into templates', function() {
+                    expect(result()).to.equal('banana : <b>foo <></b>');
+                });
             });
         });
 
         describe('.renderObject', function() {
-            var result = local(function() {
-                return Template.renderObject(repeatingTemplate(), templateVars());
+            context('when escaping html', function() {
+                var result = local(function() {
+                    return Template.renderObject(repeatingTemplate(), templateVars());
+                });
+
+                it ('escapes, iterpolates, and concatenates key/value pairs from objects', function() {
+                    expect(result()).to.equal('item_a : <b>banana</b>item_b : <b>foo &lt;&gt;</b>');
+                });
             });
 
-            it ('iterpolates and concatenates key/value pairs from objects', function() {
-                expect(result()).to.equal('item_a : <b>banana</b>item_b : <b>foo &lt;&gt;</b>');
+            context('when not escaping html', function() {
+                var result = local(function() {
+                    return Template.renderObject(repeatingTemplate(), templateVars(), true);
+                });
+
+                it ('iterpolates and concatenates key/value pairs from objects', function() {
+                    expect(result()).to.equal('item_a : <b>banana</b>item_b : <b>foo <></b>');
+                });
             });
         });
 
         describe('._escape', function() {
+            var result = local(function() {
+                return Template._escape('<>"\'/&amp;');
+            });
+
             it ('escapes HTML characters in input strings', function() {
-                var result = Template._escape('<>"\'/&amp;');
-                expect(result).to.equal('&lt;&gt;&quot;&#39;&#x2F;&amp;amp;');
+                expect(result()).to.equal('&lt;&gt;&quot;&#39;&#x2F;&amp;amp;');
             });
         });
     });
