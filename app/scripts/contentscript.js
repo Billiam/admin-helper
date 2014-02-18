@@ -297,6 +297,17 @@ var Summarize = {
     TARGET_OUTPUT: 'TSEntryInline',
 
     /**
+     * Summary output ID
+     *
+     * @property OUTPUT_ID
+     * @type String
+     * @static
+     * @final
+     * @default 'admin_helper'
+     */
+    OUTPUT_ID: 'admin_helper',
+
+    /**
      * Total admin entries by note field prefix
      *
      * Renders output above `TARGET_OUTPUT` node
@@ -355,6 +366,24 @@ var Summarize = {
     },
 
     /**
+     * Whether total summary data should be rendered on the page
+     *
+     * @method _shouldRender
+     * @param {Object} totals
+     * @returns {Boolean}
+     * @private
+     */
+    _shouldRender: function(totals) {
+        for(var item in totals) {
+            if (Object.prototype.hasOwnProperty.call(totals, item)) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    /**
      * Generate HTML for hour output and insert into the DOM
      *
      * @method _render
@@ -363,18 +392,19 @@ var Summarize = {
      * @chainable
      */
     _render: function(totals) {
-        var summary = document.createElement('div');
-        var formattedTotals = this._formatTotals(totals);
+        var entries = document.getElementById(this.TARGET_OUTPUT);
 
-        summary.innerHTML = Template.render('<ul id="admin_helper">{items}</ul>', {
-            items: Template.renderObject('<li>{key}: <span class="admin_helper_hours">{value}</span>', formattedTotals)
-        });
+        if(entries && this._shouldRender(totals)) {
+            var summary = document.createElement('div');
+            summary.setAttribute('id', this.OUTPUT_ID);
+            var formattedTotals = this._formatTotals(totals);
 
-        var entries = document.getElementById('TSEntryInline');
-        if (entries) {
+            summary.innerHTML = Template.render('<ul>{items}</ul>', {
+                items: Template.renderObject('<li>{key}: <span class="admin_helper_hours">{value}</span>', formattedTotals)
+            }, true);
+
             entries.parentNode.insertBefore(summary, entries);
         }
-
         return this;
     }
 };
