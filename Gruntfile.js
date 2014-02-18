@@ -110,7 +110,20 @@ module.exports = function (grunt) {
         // not used since Uglify task does concat,
         // but still available if needed
         concat: {
-            dist: {}
+            options: {
+                separator: "\n",
+                process: function(src, filepath) {
+                    return grunt.template.process(src, grunt);
+                }
+            },
+            dist: {
+                src: ['tools/userscript_header.js', '<%= yeoman.app %>/scripts/contentscript.js'],
+                dest: '<%= yeoman.dist %>/admin-helper.user.js'
+            },
+            package: {
+                src: ['tools/userscript_header.js', '<%= yeoman.dist %>/scripts/contentscript.js'],
+                dest: 'package/admin-helper.user.js'
+            }
         },
         // not enabled since usemin task does concat and uglify
         // check index.html to edit your build targets
