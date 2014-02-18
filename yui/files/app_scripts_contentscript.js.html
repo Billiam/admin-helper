@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>app\scripts\contentscript.js - AdminHelper</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+
+    <!-- AlloyUI -->
+    <link rel="stylesheet" href="http://cdn.alloyui.com/2.0.x/aui-css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.alloyui.com/2.0.x/aui-css/css/bootstrap-responsive.min.css">
+    <script src="http://cdn.alloyui.com/2.0.x/aui/aui-min.js"></script>
+
+</head>
+<body class="yui3-skin-sam">
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <h1 class="brand">
+                <a href="/">
+                
+                    <img alt="AdminHelper" src="../assets/img/logo-small.png" title="AdminHelper">
+                
+                </a>
+            </h1>
+            <div class="nav">
+                <li class="divider-vertical"></li>
+                <li>
+                    <p class="navbar-text">
+                        API Docs for Version: <b>0.0.8</b>
+                    </p>
+                </li>
+            </div>
+        </div>
+    </div>
+
+    <div id="bd" class="container">
+        <div class="row">
+            <div class="span3">
+                <div id="docs-sidebar" class="sidebar apidocs">
+                    <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview">
+        <ul class="nav nav-tabs">
+            <li class="active tab-selected"><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel" class="tab-content">
+            <ul id="api-classes" class="apis classes tab-pane active">
+            
+                <li><a href="../classes/AdminHelper.html">AdminHelper</a></li>
+            
+                <li><a href="../classes/Highlight.html">Highlight</a></li>
+            
+                <li><a href="../classes/QueryResult.html">QueryResult</a></li>
+            
+                <li><a href="../classes/Summarize.html">Summarize</a></li>
+            
+                <li><a href="../classes/Template.html">Template</a></li>
+            
+                <li><a href="../classes/Xpath.html">Xpath</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules tab-pane">
+            
+                <li><a href="../modules/AdminHelper.html">AdminHelper</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+            <div class="span9">
+                    <div id="api-options" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+  <h1><small>File</small> <code>app\scripts\contentscript.js</code></h1>
+</div>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x27;use strict&#x27;;
+/**
+ * Admin Helper
+ *
+ * @module AdminHelper
+ */
+
+/**
+ * A wrapper for XPathResult, providing forEach and map methods
+ *
+ * @class QueryResult
+ * @constructor
+ * @param {XPathResult} result XPathResult wrap and query
+ */
+var QueryResult = function(result) {
+    this.result = result;
+
+    this.length = result.snapshotLength;
+};
+
+/**
+ * Iterate over results, running callback on each item
+ *
+ * @method forEach
+ * @param {callback} callback Method to run against each result item
+ * @chainable
+ * @example
+ *     result.forEach(function(item) {
+ *         console.log(item.getAttribute(&#x27;href&#x27;));
+ *     });
+ */
+QueryResult.prototype.forEach = function(callback) {
+    for (var i = 0, l = this.result.snapshotLength; i &lt; l; i++) {
+        callback(this.result.snapshotItem(i));
+    }
+
+    return this;
+};
+
+/**
+ * Iterate over results, returning an array of callback results for items
+ *
+ * @method map
+ * @param {callback} callback Method to run agains each result item
+ * @return {Array} Mapped result array
+ * @example
+ *     var allHrefs = result.map(function(item) {
+ *         return item.getAttribute(&#x27;href&#x27;);
+ *     });
+ */
+QueryResult.prototype.map = function(callback) {
+    var result = [];
+
+    this.forEach(function(item) {
+        result.push(callback(item));
+    });
+
+    return result;
+};
+
+/**
+ * Immediately fetch all query result items
+ *
+ * @method all
+ * @returns {Array} Query items
+ */
+QueryResult.prototype.all = function() {
+    return this.map(function(item) {
+        return item;
+    });
+};
+
+/**
+ * Simplified Xpath query interface
+ *
+ * @class Xpath
+ * @static
+ */
+var Xpath = {
+    /**
+     * Find multiple dom nodes for an xpath query
+     *
+     * @method findAll
+     * @param {String} path XPath query
+     * @param {null|HTMLElement} source=document.body Root element for xpath query
+     * @return {QueryResult} Iterable query results
+     * @example
+     *     Xpath.findAll(&#x27;td&#x27;, myTableElement).forEach(function(tableCell) {
+     *         ...
+     *     });
+     */
+    findAll: function(path, source) {
+        return this._evaluate(path, source, true);
+    },
+
+    /**
+     * Find multiple dom nodes for an xpath query
+     *
+     * @method find
+     * @param {String} path XPath query
+     * @param {null|HTMLElement} source=document.body Root element for xpath query
+     * @return {HTMLElement|null} The single result node
+     * @example
+     *     var firstSidebarLink = Xpath.find(&#x27;a[0]&#x27;, sidebarElement);
+     */
+    find: function(path, source) {
+        return this._evaluate(path, source, false);
+    },
+
+    /**
+     * Run an xpath query
+     *
+     * @method _evaluate
+     * @param {String} path
+     * @param {null|HTMLElement} source=document.body Root element for xpath query
+     * @param {Boolean} multi=false Whether to query for and return multiple results
+     * @return {QueryResult|HTMLElement|null} Result of xpath query, depending on &#x60;multi&#x60;
+     * @private
+     */
+    _evaluate: function(path, source, multi) {
+        source = (source === null || source === undefined) ? document.body : source;
+
+        var queryType = multi ? XPathResult.ORDERED_NODE_SNAPSHOT_TYPE : XPathResult.FIRST_ORDERED_NODE_TYPE;
+
+        var result = document.evaluate(path, source, null, queryType);
+
+        if (multi) {
+            return new QueryResult(result);
+        } else {
+            return result.singleNodeValue;
+        }
+    }
+};
+
+
+/**
+ * Tiny templating class
+ *
+ * Original source: http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/
+ *
+ * @class Template
+ * @static
+ */
+var Template = {
+    /**
+     * Render template string with provided arguments
+     *
+     * Variables are wrapped in single braces
+     *
+     * @method render
+     * @param {String} template Template
+     * @param {Object|Array} data Template variables
+     * @param {Boolean} raw If true, input will not be HTML escaped
+     * @return {String}
+     * @example
+     *     var html = Template.render(
+     *         &#x27;&lt;b&gt;{name}&lt;/b&gt; - {title}&#x27;,
+     *         {
+     *             name: &#x27;Rudy&#x27;,
+     *             title: &#x27;Sysop&#x27;
+     *         }
+     *     );
+     *     console.log(html);
+     *     //&gt; &lt;b&gt;Rudy&lt;/b&gt; - Sysop
+     */
+    render: function (template, data, raw) {
+        for(var key in data) {
+            if(data.hasOwnProperty(key)) {
+                var value = raw ? data[key] : this._escape(data[key]);
+
+                template=template.replace(new RegExp(&#x27;{&#x27;+key+&#x27;}&#x27;,&#x27;g&#x27;), value);
+            }
+        }
+        return template;
+    },
+
+    /**
+     * Render each object key as a separate template
+     *
+     * @method renderObject
+     * @param {String} template Template
+     * @param {Object|Array} data Template variables
+     * @param {Boolean} raw If true, input will not be HTML escaped
+     * @return {String}
+     * @example
+     *     var html = Template.renderObject(
+     *         &#x27;&lt;span&gt;&lt;b&gt;{key}&lt;/b&gt; - {value}&lt;/span&gt;&#x27;,
+     *         {
+     *             Rudy: &#x27;Sysop&#x27;,
+     *             Charles: &#x27;DBA&#x27;
+     *         }
+     *     );
+     *     console.log(html);
+     *     //&gt; &lt;span&gt;&lt;b&gt;Rudy&lt;/b&gt; - Sysop&lt;/span&gt;&lt;span&gt;&lt;b&gt;Charles&lt;/b&gt; - DBA&lt;/span&gt;
+     */
+    renderObject: function(template, data, raw) {
+        var output = &#x27;&#x27;;
+        for (var key in data) {
+            if(data.hasOwnProperty(key)) {
+                output += Template.render(template, {key: key, value:data[key]}, raw);
+            }
+        }
+        return output;
+    },
+
+    /**
+     * Escape an html string
+     *
+     * @param {String} html
+     * @returns {string}
+     * @private
+     */
+    _escape: function(html) {
+        return String(html)
+            .replace(/&amp;/g, &#x27;&amp;amp;&#x27;)
+            .replace(/&quot;/g, &#x27;&amp;quot;&#x27;)
+            .replace(/&#x27;/g, &#x27;&amp;#39;&#x27;)
+            .replace(/&lt;/g, &#x27;&amp;lt;&#x27;)
+            .replace(/&gt;/g, &#x27;&amp;gt;&#x27;)
+            .replace(/\//g, &#x27;&amp;#x2F;&#x27;);
+    }
+};
+
+/**
+ * Admin row highlighter class
+ *
+ * @class Highlight
+ * @static
+ */
+var Highlight = {
+    /**
+     * Classname to add to highlighted DOM nodes
+     *
+     * @property HIGHLIGHT_CLASS
+     * @type String
+     * @static
+     * @final
+     * @default &#x27;admin_helper_highlight&#x27;
+     */
+    HIGHLIGHT_CLASS: &#x27;admin_helper_highlight&#x27;,
+
+    /**
+     * Apply highlight class to DOM nodes
+     *
+     * @method run
+     * @param {QueryResult} rows Elements to highlight
+     * @chainable
+     */
+    run: function(rows) {
+        var self = this;
+        rows.forEach(function(row) {
+            row.classList.add(self.HIGHLIGHT_CLASS);
+        });
+
+        return this;
+    }
+};
+
+/**
+ * Admin time summarizer class
+ *
+ * @class Summarize
+ * @static
+ */
+var Summarize = {
+    /**
+     * Xpath selector for hour table cells relative to admin entry rows
+     *
+     * @property HOUR_CELL
+     * @type String
+     * @static
+     * @final
+     * @default &#x27;td[contains(@class, &quot;hours&quot;)]&#x27;
+     */
+    HOUR_CELL: &#x27;td[contains(@class, &quot;hours&quot;)]&#x27;,
+
+    /**
+     * Xpath selector for comment table cells relative to admin entry rows
+     *
+     * @property NOTE_CELL
+     * @type String
+     * @static
+     * @final
+     * @default &#x27;td[@class=&quot;notes&quot;]&#x27;
+     */
+    NOTE_CELL: &#x27;td[contains(@class, &quot;notes&quot;)]&#x27;,
+
+    /**
+     * Dom node ID to insert output before
+     *
+     * @property TARGET_OUTPUT
+     * @type String
+     * @static
+     * @final
+     * @default &#x27;TSEntryInline&#x27;
+     */
+    TARGET_OUTPUT: &#x27;TSEntryInline&#x27;,
+
+    /**
+     * Summary output ID
+     *
+     * @property OUTPUT_ID
+     * @type String
+     * @static
+     * @final
+     * @default &#x27;admin_helper&#x27;
+     */
+    OUTPUT_ID: &#x27;admin_helper&#x27;,
+
+    /**
+     * Total admin entries by note field prefix
+     *
+     * Renders output above &#x60;TARGET_OUTPUT&#x60; node
+     *
+     * @method run
+     * @param {QueryResult} rows Rows to summarize
+     * @chainable
+     */
+    run: function(rows) {
+        var totals = {};
+        var self = this;
+
+        rows.forEach(function(row) {
+            var noteNode = Xpath.find(self.NOTE_CELL, row);
+            var label = noteNode.textContent.match(/(.+?): .+/);
+
+            if (label) {
+                var hourNode = Xpath.find(self.HOUR_CELL, row);
+                var hours = hourNode.textContent * 1;
+                if (totals[label[1]] === undefined) {
+                    totals[label[1]] = 0;
+                }
+
+                totals[label[1]] += hours;
+            }
+        });
+
+        this._render(totals);
+
+        return this;
+    },
+
+    /**
+     * Create a new data object with fixed decimal values
+     *
+     * @method _formatTotals
+     * @param {Object} totals Hour totals object to clone
+     * @param {Number} [decimals=2] Number of decimal places for new total object
+     * @returns {Object} Formatted totals object
+     * @private
+     */
+    _formatTotals: function(totals, decimals) {
+        if (decimals === undefined) {
+            decimals = 2;
+        }
+
+        var formattedTotals = {};
+
+        for(var key in totals) {
+            if (totals.hasOwnProperty(key)) {
+                formattedTotals[key] = totals[key].toFixed(decimals);
+            }
+        }
+
+        return formattedTotals;
+    },
+
+    /**
+     * Whether total summary data should be rendered on the page
+     *
+     * @method _shouldRender
+     * @param {Object} totals
+     * @returns {Boolean}
+     * @private
+     */
+    _shouldRender: function(totals) {
+        for(var item in totals) {
+            if (Object.prototype.hasOwnProperty.call(totals, item)) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    /**
+     * Generate HTML for hour output and insert into the DOM
+     *
+     * @method _render
+     * @param {Object} totals Summarized data as a &#x60;type&#x60;: &#x60;hours&#x60; object
+     * @private
+     * @chainable
+     */
+    _render: function(totals) {
+        var entries = document.getElementById(this.TARGET_OUTPUT);
+
+        if(entries &amp;&amp; this._shouldRender(totals)) {
+            var summary = document.createElement(&#x27;div&#x27;);
+            summary.setAttribute(&#x27;id&#x27;, this.OUTPUT_ID);
+            var formattedTotals = this._formatTotals(totals);
+
+            summary.innerHTML = Template.render(&#x27;&lt;ul&gt;{items}&lt;/ul&gt;&#x27;, {
+                items: Template.renderObject(&#x27;&lt;li&gt;{key}: &lt;span class=&quot;admin_helper_hours&quot;&gt;{value}&lt;/span&gt;&#x27;, formattedTotals)
+            }, true);
+
+            entries.parentNode.insertBefore(summary, entries);
+        }
+        return this;
+    }
+};
+
+/**
+ * Finds Admin entry rows and delegates actions to provided hooks
+ *
+ * @class AdminHelper
+ * @static
+ */
+var AdminHelper = {
+    /**
+     * Xpath query for admin rows
+     *
+     * @property ADMIN_ROWS
+     * @type String
+     * @static
+     * @final
+     * @default &#x27;//tr[td[@class=&#x27;project&#x27;]/span[text()=&#x27;ADMIN&#x27;]]&#x27;
+     */
+    ADMIN_ROWS: &#x27;//tr[td[contains(@class, &quot;project&quot;)]/span[text()=&quot;ADMIN&quot;]]&#x27;,
+
+    /**
+     * Admin helper initialization
+     *
+     * @method init
+     * @param {Object[]} hooks Array of classes with &#x60;run&#x60; methods
+     */
+    init: function(hooks) {
+        this._iterateRows(hooks);
+    },
+
+    /**
+     * Admin row iteration, delegate to provided hooks
+     *
+     * @method _iterateRows
+     * @param {Object[]} hooks Array of classes with &#x60;run&#x60; methods
+     * @private
+     */
+    _iterateRows: function(hooks) {
+        var rows = Xpath.findAll(this.ADMIN_ROWS);
+
+        hooks.forEach(function(hook) {
+            if (typeof hook.run === &#x27;function&#x27;) {
+                hook.run(rows);
+            }
+        });
+    }
+};
+
+AdminHelper.init([
+    Highlight,
+    Summarize
+]);
+    </pre>
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/js/yui-prettify.js"></script>
+    <script src="../assets/../api.js"></script>
+    <script src="../assets/js/api-filter.js"></script>
+    <script src="../assets/js/api-list.js"></script>
+    <script src="../assets/js/api-search.js"></script>
+    <script src="../assets/js/apidocs.js"></script>
+
+</body>
+</html>

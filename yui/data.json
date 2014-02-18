@@ -1,0 +1,615 @@
+{
+    "project": {
+        "name": "AdminHelper",
+        "description": "Script documentation",
+        "version": "0.0.8",
+        "url": "http://github.com/billiam/admin-helper"
+    },
+    "files": {
+        "app\\scripts\\contentscript.js": {
+            "name": "app\\scripts\\contentscript.js",
+            "modules": {
+                "AdminHelper": 1
+            },
+            "classes": {
+                "QueryResult": 1,
+                "Xpath": 1,
+                "Template": 1,
+                "Highlight": 1,
+                "Summarize": 1,
+                "AdminHelper": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "AdminHelper": {
+            "name": "AdminHelper",
+            "submodules": {},
+            "classes": {
+                "QueryResult": 1,
+                "Xpath": 1,
+                "Template": 1,
+                "Highlight": 1,
+                "Summarize": 1,
+                "AdminHelper": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "app\\scripts\\contentscript.js",
+            "line": 412,
+            "description": "Admin Helper"
+        }
+    },
+    "classes": {
+        "QueryResult": {
+            "name": "QueryResult",
+            "shortname": "QueryResult",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "AdminHelper",
+            "namespace": "",
+            "file": "app\\scripts\\contentscript.js",
+            "line": 8,
+            "description": "A wrapper for XPathResult, providing forEach and map methods",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "result",
+                    "description": "XPathResult wrap and query",
+                    "type": "XPathResult"
+                }
+            ]
+        },
+        "Xpath": {
+            "name": "Xpath",
+            "shortname": "Xpath",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "AdminHelper",
+            "namespace": "",
+            "file": "app\\scripts\\contentscript.js",
+            "line": 73,
+            "description": "Simplified Xpath query interface",
+            "static": 1
+        },
+        "Template": {
+            "name": "Template",
+            "shortname": "Template",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "AdminHelper",
+            "namespace": "",
+            "file": "app\\scripts\\contentscript.js",
+            "line": 136,
+            "description": "Tiny templating class\n\nOriginal source: http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/",
+            "static": 1
+        },
+        "Highlight": {
+            "name": "Highlight",
+            "shortname": "Highlight",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "AdminHelper",
+            "namespace": "",
+            "file": "app\\scripts\\contentscript.js",
+            "line": 224,
+            "description": "Admin row highlighter class",
+            "static": 1
+        },
+        "Summarize": {
+            "name": "Summarize",
+            "shortname": "Summarize",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "AdminHelper",
+            "namespace": "",
+            "file": "app\\scripts\\contentscript.js",
+            "line": 259,
+            "description": "Admin time summarizer class",
+            "static": 1
+        },
+        "AdminHelper": {
+            "name": "AdminHelper",
+            "shortname": "AdminHelper",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "AdminHelper",
+            "namespace": "",
+            "file": "app\\scripts\\contentscript.js",
+            "line": 412,
+            "description": "Finds Admin entry rows and delegates actions to provided hooks",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 21,
+            "description": "Iterate over results, running callback on each item",
+            "itemtype": "method",
+            "name": "forEach",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "Method to run against each result item",
+                    "type": "Callback"
+                }
+            ],
+            "chainable": 1,
+            "example": [
+                "\n    result.forEach(function(item) {\n        console.log(item.getAttribute('href'));\n    });"
+            ],
+            "class": "QueryResult",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 40,
+            "description": "Iterate over results, returning an array of callback results for items",
+            "itemtype": "method",
+            "name": "map",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "Method to run agains each result item",
+                    "type": "Callback"
+                }
+            ],
+            "return": {
+                "description": "Mapped result array",
+                "type": "Array"
+            },
+            "example": [
+                "\n    var allHrefs = result.map(function(item) {\n        return item.getAttribute('href');\n    });"
+            ],
+            "class": "QueryResult",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 61,
+            "description": "Immediately fetch all query result items",
+            "itemtype": "method",
+            "name": "all",
+            "return": {
+                "description": "Query items",
+                "type": "Array"
+            },
+            "class": "QueryResult",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 80,
+            "description": "Find multiple dom nodes for an xpath query",
+            "itemtype": "method",
+            "name": "findAll",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "XPath query",
+                    "type": "String"
+                },
+                {
+                    "name": "source=document.body",
+                    "description": "Root element for xpath query",
+                    "type": "Null|HTMLElement"
+                }
+            ],
+            "return": {
+                "description": "Iterable query results",
+                "type": "QueryResult"
+            },
+            "example": [
+                "\n    Xpath.findAll('td', myTableElement).forEach(function(tableCell) {\n        ...\n    });"
+            ],
+            "class": "Xpath",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 96,
+            "description": "Find multiple dom nodes for an xpath query",
+            "itemtype": "method",
+            "name": "find",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "XPath query",
+                    "type": "String"
+                },
+                {
+                    "name": "source=document.body",
+                    "description": "Root element for xpath query",
+                    "type": "Null|HTMLElement"
+                }
+            ],
+            "return": {
+                "description": "The single result node",
+                "type": "HTMLElement|null"
+            },
+            "example": [
+                "\n    var firstSidebarLink = Xpath.find('a[0]', sidebarElement);"
+            ],
+            "class": "Xpath",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 110,
+            "description": "Run an xpath query",
+            "itemtype": "method",
+            "name": "_evaluate",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "source=document.body",
+                    "description": "Root element for xpath query",
+                    "type": "Null|HTMLElement"
+                },
+                {
+                    "name": "multi=false",
+                    "description": "Whether to query for and return multiple results",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "Result of xpath query, depending on `multi`",
+                "type": "QueryResult|HTMLElement|null"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Xpath",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 145,
+            "description": "Render template string with provided arguments\n\nVariables are wrapped in single braces",
+            "itemtype": "method",
+            "name": "render",
+            "params": [
+                {
+                    "name": "template",
+                    "description": "Template",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "Template variables",
+                    "type": "Object|Array"
+                },
+                {
+                    "name": "raw",
+                    "description": "If true, input will not be HTML escaped",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "example": [
+                "\n    var html = Template.render(\n        '<b>{name}</b> - {title}',\n        {\n            name: 'Rudy',\n            title: 'Sysop'\n        }\n    );\n    console.log(html);\n    //> <b>Rudy</b> - Sysop"
+            ],
+            "class": "Template",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 177,
+            "description": "Render each object key as a separate template",
+            "itemtype": "method",
+            "name": "renderObject",
+            "params": [
+                {
+                    "name": "template",
+                    "description": "Template",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "Template variables",
+                    "type": "Object|Array"
+                },
+                {
+                    "name": "raw",
+                    "description": "If true, input will not be HTML escaped",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "example": [
+                "\n    var html = Template.renderObject(\n        '<span><b>{key}</b> - {value}</span>',\n        {\n            Rudy: 'Sysop',\n            Charles: 'DBA'\n        }\n    );\n    console.log(html);\n    //> <span><b>Rudy</b> - Sysop</span><span><b>Charles</b> - DBA</span>"
+            ],
+            "class": "Template",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 206,
+            "description": "Escape an html string",
+            "params": [
+                {
+                    "name": "html",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Template",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 231,
+            "description": "Classname to add to highlighted DOM nodes",
+            "itemtype": "property",
+            "name": "HIGHLIGHT_CLASS",
+            "type": "String",
+            "static": 1,
+            "final": 1,
+            "default": "'admin_helper_highlight'",
+            "class": "Highlight",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 242,
+            "description": "Apply highlight class to DOM nodes",
+            "itemtype": "method",
+            "name": "run",
+            "params": [
+                {
+                    "name": "rows",
+                    "description": "Elements to highlight",
+                    "type": "QueryResult"
+                }
+            ],
+            "chainable": 1,
+            "class": "Highlight",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 266,
+            "description": "Xpath selector for hour table cells relative to admin entry rows",
+            "itemtype": "property",
+            "name": "HOUR_CELL",
+            "type": "String",
+            "static": 1,
+            "final": 1,
+            "default": "'td[contains(@class, \"hours\")]'",
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 277,
+            "description": "Xpath selector for comment table cells relative to admin entry rows",
+            "itemtype": "property",
+            "name": "NOTE_CELL",
+            "type": "String",
+            "static": 1,
+            "final": 1,
+            "default": "'td[@class=\"notes\"]'",
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 288,
+            "description": "Dom node ID to insert output before",
+            "itemtype": "property",
+            "name": "TARGET_OUTPUT",
+            "type": "String",
+            "static": 1,
+            "final": 1,
+            "default": "'TSEntryInline'",
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 299,
+            "description": "Summary output ID",
+            "itemtype": "property",
+            "name": "OUTPUT_ID",
+            "type": "String",
+            "static": 1,
+            "final": 1,
+            "default": "'admin_helper'",
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 310,
+            "description": "Total admin entries by note field prefix\n\nRenders output above `TARGET_OUTPUT` node",
+            "itemtype": "method",
+            "name": "run",
+            "params": [
+                {
+                    "name": "rows",
+                    "description": "Rows to summarize",
+                    "type": "QueryResult"
+                }
+            ],
+            "chainable": 1,
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 343,
+            "description": "Create a new data object with fixed decimal values",
+            "itemtype": "method",
+            "name": "_formatTotals",
+            "params": [
+                {
+                    "name": "totals",
+                    "description": "Hour totals object to clone",
+                    "type": "Object"
+                },
+                {
+                    "name": "decimals",
+                    "description": "Number of decimal places for new total object",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "2"
+                }
+            ],
+            "return": {
+                "description": "Formatted totals object",
+                "type": "Object"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 368,
+            "description": "Whether total summary data should be rendered on the page",
+            "itemtype": "method",
+            "name": "_shouldRender",
+            "params": [
+                {
+                    "name": "totals",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 386,
+            "description": "Generate HTML for hour output and insert into the DOM",
+            "itemtype": "method",
+            "name": "_render",
+            "params": [
+                {
+                    "name": "totals",
+                    "description": "Summarized data as a `type`: `hours` object",
+                    "type": "Object"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "chainable": 1,
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 419,
+            "description": "Xpath query for admin rows",
+            "itemtype": "property",
+            "name": "ADMIN_ROWS",
+            "type": "String",
+            "static": 1,
+            "final": 1,
+            "default": "'//tr[td[@class='project']/span[text()='ADMIN']]'",
+            "class": "AdminHelper",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 430,
+            "description": "Admin helper initialization",
+            "itemtype": "method",
+            "name": "init",
+            "params": [
+                {
+                    "name": "hooks",
+                    "description": "Array of classes with `run` methods",
+                    "type": "Object[]"
+                }
+            ],
+            "class": "AdminHelper",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 440,
+            "description": "Admin row iteration, delegate to provided hooks",
+            "itemtype": "method",
+            "name": "_iterateRows",
+            "params": [
+                {
+                    "name": "hooks",
+                    "description": "Array of classes with `run` methods",
+                    "type": "Object[]"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "AdminHelper",
+            "module": "AdminHelper"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app\\scripts\\contentscript.js:61"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app\\scripts\\contentscript.js:206"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app\\scripts\\contentscript.js:343"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app\\scripts\\contentscript.js:368"
+        },
+        {
+            "message": "Missing item type\nEscape an html string",
+            "line": " app\\scripts\\contentscript.js:206"
+        }
+    ]
+}

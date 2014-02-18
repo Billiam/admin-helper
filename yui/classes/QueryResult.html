@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>QueryResult - AdminHelper</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+
+    <!-- AlloyUI -->
+    <link rel="stylesheet" href="http://cdn.alloyui.com/2.0.x/aui-css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.alloyui.com/2.0.x/aui-css/css/bootstrap-responsive.min.css">
+    <script src="http://cdn.alloyui.com/2.0.x/aui/aui-min.js"></script>
+
+</head>
+<body class="yui3-skin-sam">
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <h1 class="brand">
+                <a href="/">
+                
+                    <img alt="AdminHelper" src="../assets/img/logo-small.png" title="AdminHelper">
+                
+                </a>
+            </h1>
+            <div class="nav">
+                <li class="divider-vertical"></li>
+                <li>
+                    <p class="navbar-text">
+                        API Docs for Version: <b>0.0.8</b>
+                    </p>
+                </li>
+            </div>
+        </div>
+    </div>
+
+    <div id="bd" class="container">
+        <div class="row">
+            <div class="span3">
+                <div id="docs-sidebar" class="sidebar apidocs">
+                    <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview">
+        <ul class="nav nav-tabs">
+            <li class="active tab-selected"><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel" class="tab-content">
+            <ul id="api-classes" class="apis classes tab-pane active">
+            
+                <li><a href="../classes/AdminHelper.html">AdminHelper</a></li>
+            
+                <li><a href="../classes/Highlight.html">Highlight</a></li>
+            
+                <li><a href="../classes/QueryResult.html">QueryResult</a></li>
+            
+                <li><a href="../classes/Summarize.html">Summarize</a></li>
+            
+                <li><a href="../classes/Template.html">Template</a></li>
+            
+                <li><a href="../classes/Xpath.html">Xpath</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules tab-pane">
+            
+                <li><a href="../modules/AdminHelper.html">AdminHelper</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+            <div class="span9">
+                    <div id="api-options" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+    <h1>QueryResult <small>Class</small></h1>
+</div>
+
+<div class="well well-small">
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/app_scripts_contentscript.js.html#l8"><code>app\scripts\contentscript.js:8</code></a>
+        </div>
+    
+
+    
+        
+            Module: <a href="../modules/AdminHelper.html">AdminHelper</a>
+        
+    
+
+    
+</div>
+
+
+
+<div class="well well-small intro">
+    <p>A wrapper for XPathResult, providing forEach and map methods</p>
+
+</div>
+
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_QueryResult" class="method item">
+    <h3 class="name"><code>QueryResult</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>result</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/app_scripts_contentscript.js.html#l8"><code>app\scripts\contentscript.js:8</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">result</code>
+                        <span class="type">XPathResult</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>XPathResult wrap and query</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+    </div>
+
+
+<div id="classdocs">
+    <div>
+        
+            <div id="methods" class="class-section">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_all" class="method item">
+    <h3 class="name"><code>all</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Array</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/app_scripts_contentscript.js.html#l61"><code>app\scripts\contentscript.js:61</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Immediately fetch all query result items</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Array</span>:
+                    
+                    <p>Query items</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_forEach" class="method item">
+    <h3 class="name"><code>forEach</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag chainable">chainable</span>
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/app_scripts_contentscript.js.html#l21"><code>app\scripts\contentscript.js:21</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Iterate over results, running callback on each item</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type">Callback</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Method to run against each result item</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>result.forEach(function(item) {
+    console.log(item.getAttribute(&#39;href&#39;));
+});</code></pre>
+
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_map" class="method item">
+    <h3 class="name"><code>map</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Array</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/app_scripts_contentscript.js.html#l40"><code>app\scripts\contentscript.js:40</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Iterate over results, returning an array of callback results for items</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type">Callback</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Method to run agains each result item</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Array</span>:
+                    
+                    <p>Mapped result array</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>var allHrefs = result.map(function(item) {
+    return item.getAttribute(&#39;href&#39;);
+});</code></pre>
+
+            </div>
+        </div>
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+
+        
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/js/yui-prettify.js"></script>
+    <script src="../assets/../api.js"></script>
+    <script src="../assets/js/api-filter.js"></script>
+    <script src="../assets/js/api-list.js"></script>
+    <script src="../assets/js/api-search.js"></script>
+    <script src="../assets/js/apidocs.js"></script>
+
+</body>
+</html>

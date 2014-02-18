@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>Xpath - AdminHelper</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+
+    <!-- AlloyUI -->
+    <link rel="stylesheet" href="http://cdn.alloyui.com/2.0.x/aui-css/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.alloyui.com/2.0.x/aui-css/css/bootstrap-responsive.min.css">
+    <script src="http://cdn.alloyui.com/2.0.x/aui/aui-min.js"></script>
+
+</head>
+<body class="yui3-skin-sam">
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <h1 class="brand">
+                <a href="/">
+                
+                    <img alt="AdminHelper" src="../assets/img/logo-small.png" title="AdminHelper">
+                
+                </a>
+            </h1>
+            <div class="nav">
+                <li class="divider-vertical"></li>
+                <li>
+                    <p class="navbar-text">
+                        API Docs for Version: <b>0.0.8</b>
+                    </p>
+                </li>
+            </div>
+        </div>
+    </div>
+
+    <div id="bd" class="container">
+        <div class="row">
+            <div class="span3">
+                <div id="docs-sidebar" class="sidebar apidocs">
+                    <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview">
+        <ul class="nav nav-tabs">
+            <li class="active tab-selected"><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel" class="tab-content">
+            <ul id="api-classes" class="apis classes tab-pane active">
+            
+                <li><a href="../classes/AdminHelper.html">AdminHelper</a></li>
+            
+                <li><a href="../classes/Highlight.html">Highlight</a></li>
+            
+                <li><a href="../classes/QueryResult.html">QueryResult</a></li>
+            
+                <li><a href="../classes/Summarize.html">Summarize</a></li>
+            
+                <li><a href="../classes/Template.html">Template</a></li>
+            
+                <li><a href="../classes/Xpath.html">Xpath</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules tab-pane">
+            
+                <li><a href="../modules/AdminHelper.html">AdminHelper</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+            <div class="span9">
+                    <div id="api-options" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+                <div class="apidocs">
+                    <div id="docs-main">
+                        <div class="content">
+                            <div class="page-header">
+    <h1>Xpath <small>Class</small></h1>
+</div>
+
+<div class="well well-small">
+    
+
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/app_scripts_contentscript.js.html#l73"><code>app\scripts\contentscript.js:73</code></a>
+        </div>
+    
+
+    
+        
+            Module: <a href="../modules/AdminHelper.html">AdminHelper</a>
+        
+    
+
+    
+</div>
+
+
+
+<div class="well well-small intro">
+    <p>Simplified Xpath query interface</p>
+
+</div>
+
+
+
+<div id="classdocs">
+    <div>
+        
+            <div id="methods" class="class-section">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method__evaluate" class="method item private">
+    <h3 class="name"><code>_evaluate</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>path</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>source=document.body</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>multi=false</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\QueryResult.html" class="crosslink">QueryResult</a> | HTMLElement | Null</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/app_scripts_contentscript.js.html#l110"><code>app\scripts\contentscript.js:110</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Run an xpath query</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">path</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">source=document.body</code>
+                        <span class="type">Null | HTMLElement</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Root element for xpath query</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">multi=false</code>
+                        <span class="type">Boolean</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Whether to query for and return multiple results</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\QueryResult.html" class="crosslink">QueryResult</a> | HTMLElement | Null</span>:
+                    
+                    <p>Result of xpath query, depending on <code>multi</code></p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_find" class="method item">
+    <h3 class="name"><code>find</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>path</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>source=document.body</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">HTMLElement | Null</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/app_scripts_contentscript.js.html#l96"><code>app\scripts\contentscript.js:96</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Find multiple dom nodes for an xpath query</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">path</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>XPath query</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">source=document.body</code>
+                        <span class="type">Null | HTMLElement</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Root element for xpath query</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">HTMLElement | Null</span>:
+                    
+                    <p>The single result node</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>var firstSidebarLink = Xpath.find(&#39;a[0]&#39;, sidebarElement);</code></pre>
+
+            </div>
+        </div>
+    
+</div>
+
+                
+                    <div id="method_findAll" class="method item">
+    <h3 class="name"><code>findAll</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>path</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>source=document.body</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\QueryResult.html" class="crosslink">QueryResult</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/app_scripts_contentscript.js.html#l80"><code>app\scripts\contentscript.js:80</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Find multiple dom nodes for an xpath query</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">path</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>XPath query</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">source=document.body</code>
+                        <span class="type">Null | HTMLElement</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Root element for xpath query</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\QueryResult.html" class="crosslink">QueryResult</a></span>:
+                    
+                    <p>Iterable query results</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>Xpath.findAll(&#39;td&#39;, myTableElement).forEach(function(tableCell) {
+    ...
+});</code></pre>
+
+            </div>
+        </div>
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+
+        
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/vendor/prettify/prettify-min.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../assets/js/yui-prettify.js"></script>
+    <script src="../assets/../api.js"></script>
+    <script src="../assets/js/api-filter.js"></script>
+    <script src="../assets/js/api-list.js"></script>
+    <script src="../assets/js/api-search.js"></script>
+    <script src="../assets/js/apidocs.js"></script>
+
+</body>
+</html>
