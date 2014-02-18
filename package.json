@@ -1,6 +1,6 @@
 {
   "name": "AdminHelper",
-  "version": "0.0.3",
+  "version": "0.0.8",
   "homepage": "http://github.com/billiam/admin-helper",
   "dependencies": {},
   "devDependencies": {
@@ -26,9 +26,13 @@
     "grunt-concurrent": "~0.4.3",
     "load-grunt-tasks": "~0.3.0",
     "grunt-chrome-manifest": "~0.2.0",
-    "time-grunt": "~0.1.1"
+    "time-grunt": "~0.1.1",
+    "public": "git://github.com/Billiam/alloy-apidocs-theme.git#master"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+      "test": "grunt test"
   }
 }

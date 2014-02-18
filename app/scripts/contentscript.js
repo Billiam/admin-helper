@@ -14,6 +14,8 @@
  */
 var QueryResult = function(result) {
     this.result = result;
+
+    this.length = result.snapshotLength;
 };
 
 /**
@@ -40,7 +42,7 @@ QueryResult.prototype.forEach = function(callback) {
  *
  * @method map
  * @param {callback} callback Method to run agains each result item
- * @return Array Mapped result array
+ * @return {Array} Mapped result array
  * @example
  *     var allHrefs = result.map(function(item) {
  *         return item.getAttribute('href');
@@ -54,6 +56,18 @@ QueryResult.prototype.map = function(callback) {
     });
 
     return result;
+};
+
+/**
+ * Immediately fetch all query result items
+ *
+ * @method all
+ * @returns {Array} Query items
+ */
+QueryResult.prototype.all = function() {
+    return this.map(function(item) {
+        return item;
+    });
 };
 
 /**
@@ -104,7 +118,7 @@ var Xpath = {
      * @private
      */
     _evaluate: function(path, source, multi) {
-        source = source === undefined ? document.body : source;
+        source = (source === null || source === undefined) ? document.body : source;
 
         var queryType = multi ? XPathResult.ORDERED_NODE_SNAPSHOT_TYPE : XPathResult.FIRST_ORDERED_NODE_TYPE;
 
@@ -136,6 +150,7 @@ var Template = {
      * @method render
      * @param {String} template Template
      * @param {Object|Array} data Template variables
+     * @param {Boolean} raw If true, input will not be HTML escaped
      * @return {String}
      * @example
      *     var html = Template.render(
@@ -148,10 +163,12 @@ var Template = {
      *     console.log(html);
      *     //> <b>Rudy</b> - Sysop
      */
-    render: function (template, data) {
+    render: function (template, data, raw) {
         for(var key in data) {
             if(data.hasOwnProperty(key)) {
-                template=template.replace(new RegExp('{'+key+'}','g'), data[key]);
+                var value = raw ? data[key] : this._escape(data[key]);
+
+                template=template.replace(new RegExp('{'+key+'}','g'), value);
             }
         }
         return template;
@@ -163,6 +180,7 @@ var Template = {
      * @method renderObject
      * @param {String} template Template
      * @param {Object|Array} data Template variables
+     * @param {Boolean} raw If true, input will not be HTML escaped
      * @return {String}
      * @example
      *     var html = Template.renderObject(
@@ -175,11 +193,11 @@ var Template = {
      *     console.log(html);
      *     //> <span><b>Rudy</b> - Sysop</span><span><b>Charles</b> - DBA</span>
      */
-    renderObject: function(template, data) {
+    renderObject: function(template, data, raw) {
         var output = '';
         for (var key in data) {
             if(data.hasOwnProperty(key)) {
-                output += Template.render(template, {key: key, value: this._escape(data[key])});
+                output += Template.render(template, {key: key, value:data[key]}, raw);
             }
         }
         return output;
@@ -193,9 +211,13 @@ var Template = {
      * @private
      */
     _escape: function(html) {
-        var pre = document.createElement('pre');
-        pre.appendChild(document.createTextNode( html ));
-        return pre.innerHTML;
+        return String(html)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\//g, '&#x2F;');
     }
 };
 
@@ -275,6 +297,17 @@ var Summarize = {
     TARGET_OUTPUT: 'TSEntryInline',
 
     /**
+     * Summary output ID
+     *
+     * @property OUTPUT_ID
+     * @type String
+     * @static
+     * @final
+     * @default 'admin_helper'
+     */
+    OUTPUT_ID: 'admin_helper',
+
+    /**
      * Total admin entries by note field prefix
      *
      * Renders output above `TARGET_OUTPUT` node
@@ -293,7 +326,7 @@ var Summarize = {
 
             if (label) {
                 var hourNode = Xpath.find(self.HOUR_CELL, row);
-                var hours = hourNode.textContent * 1.0;
+                var hours = hourNode.textContent * 1;
                 if (totals[label[1]] === undefined) {
                     totals[label[1]] = 0;
                 }
@@ -308,6 +341,49 @@ var Summarize = {
     },
 
     /**
+     * Create a new data object with fixed decimal values
+     *
+     * @method _formatTotals
+     * @param {Object} totals Hour totals object to clone
+     * @param {Number} [decimals=2] Number of decimal places for new total object
+     * @returns {Object} Formatted totals object
+     * @private
+     */
+    _formatTotals: function(totals, decimals) {
+        if (decimals === undefined) {
+            decimals = 2;
+        }
+
+        var formattedTotals = {};
+
+        for(var key in totals) {
+            if (totals.hasOwnProperty(key)) {
+                formattedTotals[key] = totals[key].toFixed(decimals);
+            }
+        }
+
+        return formattedTotals;
+    },
+
+    /**
+     * Whether total summary data should be rendered on the page
+     *
+     * @method _shouldRender
+     * @param {Object} totals
+     * @returns {Boolean}
+     * @private
+     */
+    _shouldRender: function(totals) {
+        for(var item in totals) {
+            if (Object.prototype.hasOwnProperty.call(totals, item)) {
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    /**
      * Generate HTML for hour output and insert into the DOM
      *
      * @method _render
@@ -316,17 +392,19 @@ var Summarize = {
      * @chainable
      */
     _render: function(totals) {
-        var summary = document.createElement('div');
+        var entries = document.getElementById(this.TARGET_OUTPUT);
 
-        summary.innerHTML = Template.render('<ul id="admin_helper">{items}</ul>', {
-            items: Template.renderObject('<li>{key}: <span class="admin_helper_hours">{value}</span>', totals)
-        });
+        if(entries && this._shouldRender(totals)) {
+            var summary = document.createElement('div');
+            summary.setAttribute('id', this.OUTPUT_ID);
+            var formattedTotals = this._formatTotals(totals);
 
-        var entries = document.getElementById('TSEntryInline');
-        if (entries) {
+            summary.innerHTML = Template.render('<ul>{items}</ul>', {
+                items: Template.renderObject('<li>{key}: <span class="admin_helper_hours">{value}</span>', formattedTotals)
+            }, true);
+
             entries.parentNode.insertBefore(summary, entries);
         }
-
         return this;
     }
 };

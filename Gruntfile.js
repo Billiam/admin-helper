@@ -263,6 +263,7 @@ module.exports = function (grunt) {
                 version: '<%= pkg.version %>',
                 url: '<%= pkg.homepage %>',
                 options: {
+                    themedir: 'node_modules/alloy-apidocs-theme',
                     paths: '<%= yeoman.app %>/scripts',
                     outdir: 'docs/yui'
                 }

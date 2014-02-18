@@ -17,11 +17,23 @@
         var expect = chai.expect;
         var should = chai.should();
     </script>
-    <script src="support/test_helper.js"></script>
+
+    <!-- Helpers !-->
+    <script src="support/testHelper.js"></script>
+
+    <!-- Fixtures !-->
+    <script src="support/fixtures/adminRows.js"></script>
+
+    <!-- Application !-->
     <script src="../app/scripts/contentscript.js"></script>
 
-    <!-- Tests -->
+    <!-- Tests !-->
     <script src="spec/queryResult.js"></script>
+    <script src="spec/xpath.js"></script>
+    <script src="spec/template.js"></script>
+    <script src="spec/highlight.js"></script>
+    <script src="spec/adminHelper.js"></script>
+    <script src="spec/summarize.js"></script>
 
     <script>
       if (navigator.userAgent.indexOf('PhantomJS') < 0) {
