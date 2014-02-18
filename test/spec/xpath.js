@@ -72,7 +72,7 @@
             });
 
             context('with no matching nodes', function() {
-                it('returns an emty list', function() {
+                it('returns an empty list', function() {
                     var result = Xpath.findAll('.//div', data());
                     expect(result.length).to.equal(0);
                 });
