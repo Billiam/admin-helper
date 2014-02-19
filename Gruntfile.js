@@ -110,6 +110,7 @@ module.exports = function (grunt) {
         // not used since Uglify task does concat,
         // but still available if needed
         concat: {
+            dist: {}
         },
         // not enabled since usemin task does concat and uglify
         // check index.html to edit your build targets
@@ -120,10 +121,12 @@ module.exports = function (grunt) {
         template: {
             userscript: {
                 options: {
-                    data: {
-                        pkg: grunt.file.readJSON('package.json'),
-                        css: grunt.file.exists('dist/styles/main.css') ? grunt.file.read('dist/styles/main.css') : '',
-                        script: grunt.file.exists('dist/scripts/contentscript.js') ? grunt.file.read('dist/scripts/contentscript.js') : ''
+                    data: function() {
+                        return {
+                            pkg: grunt.file.readJSON('package.json'),
+                            css: grunt.file.read('dist/styles/main.css'),
+                            script: grunt.file.read('dist/scripts/contentscript.js')
+                        };
                     }
                 },
                 files: {
@@ -297,6 +300,8 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concurrent:dist',
         'cssmin',
+        'concat',
+        'uglify',
         'copy',
         'usemin',
         'compress',
