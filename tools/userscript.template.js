@@ -6,6 +6,7 @@
 // @version       <%= pkg.version %>
 // @run-at        document-end
 // @icon          http://billiam.github.io/admin-helper/icon-128.png
+// @updateUrl     http://billiam.github.io/admin-helper/admin-helper.user.js
 // ==/UserScript==
 GM_addStyle('<%= css %>');
 <%= script %>

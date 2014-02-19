@@ -301,7 +301,8 @@ module.exports = function (grunt) {
         'uglify',
         'copy',
         'usemin',
-        'compress'
+        'compress',
+        'template'
     ]);
 
     grunt.registerTask('default', [
