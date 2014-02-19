@@ -122,8 +122,8 @@ module.exports = function (grunt) {
                 options: {
                     data: {
                         pkg: grunt.file.readJSON('package.json'),
-                        css: grunt.file.read('dist/styles/main.css'),
-                        script: grunt.file.read('dist/scripts/contentscript.js')
+                        css: grunt.file.exists('dist/styles/main.css') ? grunt.file.read('dist/styles/main.css') : '',
+                        script: grunt.file.exists('dist/scripts/contentscript.js') ? grunt.file.read('dist/scripts/contentscript.js') : ''
                     }
                 },
                 files: {
@@ -297,8 +297,6 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concurrent:dist',
         'cssmin',
-        'concat',
-        'uglify',
         'copy',
         'usemin',
         'compress',
