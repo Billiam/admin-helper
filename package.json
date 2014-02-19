@@ -27,12 +27,13 @@
     "load-grunt-tasks": "~0.3.0",
     "grunt-chrome-manifest": "~0.2.0",
     "time-grunt": "~0.1.1",
-    "public": "git://github.com/Billiam/alloy-apidocs-theme.git#master"
+    "public": "git://github.com/Billiam/alloy-apidocs-theme.git#master",
+    "grunt-template": "~0.2.3"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-      "test": "grunt test"
+    "test": "grunt test"
   }
 }
