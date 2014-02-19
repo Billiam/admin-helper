@@ -7,3 +7,5 @@
 // @run-at        document-end
 // @icon          http://billiam.github.io/admin-helper/icon-128.png
 // ==/UserScript==
+GM_addStyle('<%= css %>');
+<%= script %>
