@@ -33,7 +33,7 @@
                 <li class="divider-vertical"></li>
                 <li>
                     <p class="navbar-text">
-                        API Docs for Version: <b>0.0.8</b>
+                        API Docs for Version: <b>0.1.0</b>
                     </p>
                 </li>
             </div>
@@ -123,7 +123,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/app_scripts_contentscript.js.html#l259"><code>app\scripts\contentscript.js:259</code></a>
+            Defined in: <a href="../files/app_scripts_contentscript.js.html#l274"><code>app\scripts\contentscript.js:274</code></a>
         </div>
     
 
@@ -150,6 +150,135 @@
         
             <div id="methods" class="class-section">
                 <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method__formatHour" class="method item private">
+    <h3 class="name"><code>_formatHour</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>hour</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>decimals</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">String</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/app_scripts_contentscript.js.html#l409"><code>app\scripts\contentscript.js:409</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Format an hour as fixed decimals</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">hour</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Hour to format</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">decimals</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Number of displayed decimals</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">String</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
 
                 
                     <div id="method__formatTotals" class="method item private">
@@ -206,7 +335,7 @@
             
         
         
-        <a href="../files/app_scripts_contentscript.js.html#l343"><code>app\scripts\contentscript.js:343</code></a>
+        <a href="../files/app_scripts_contentscript.js.html#l365"><code>app\scripts\contentscript.js:365</code></a>
         
         </p>
 
@@ -297,6 +426,12 @@
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code>unlabeled</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -330,7 +465,7 @@
             
         
         
-        <a href="../files/app_scripts_contentscript.js.html#l386"><code>app\scripts\contentscript.js:386</code></a>
+        <a href="../files/app_scripts_contentscript.js.html#l453"><code>app\scripts\contentscript.js:453</code></a>
         
         </p>
 
@@ -367,6 +502,22 @@
                     
                 </li>
             
+                <li class="param">
+                    
+                        <code class="param-name">unlabeled</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Total of unlabeled admin entries</p>
+
+                    </div>
+
+                    
+                </li>
+            
             </ul>
         </div>
     
@@ -387,6 +538,12 @@
                 <li class="arg">
                     
                         <code>totals</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>unlabeled</code>
                     
                 </li>
             
@@ -425,7 +582,7 @@
             
         
         
-        <a href="../files/app_scripts_contentscript.js.html#l368"><code>app\scripts\contentscript.js:368</code></a>
+        <a href="../files/app_scripts_contentscript.js.html#l430"><code>app\scripts\contentscript.js:430</code></a>
         
         </p>
 
@@ -461,6 +618,21 @@
                     
                 </li>
             
+                <li class="param">
+                    
+                        <code class="param-name">unlabeled</code>
+                        <span class="type">Number</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
             </ul>
         </div>
     
@@ -474,6 +646,115 @@
                     
                         <span class="type">Boolean</span>:
                     
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__sortTotals" class="method item private">
+    <h3 class="name"><code>_sortTotals</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>totals</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Object</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/app_scripts_contentscript.js.html#l386"><code>app\scripts\contentscript.js:386</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sort totals object into alphabetized array of {name: &#39;&#39;, total: ##} objects</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">totals</code>
+                        <span class="type">Object</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Hour totals object</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Object</span>:
+                    
+                    <p>Sorted total objects</p>
+
                 
             </div>
         </div>
@@ -527,7 +808,7 @@
             
         
         
-        <a href="../files/app_scripts_contentscript.js.html#l310"><code>app\scripts\contentscript.js:310</code></a>
+        <a href="../files/app_scripts_contentscript.js.html#l325"><code>app\scripts\contentscript.js:325</code></a>
         
         </p>
 
@@ -610,7 +891,7 @@
             
         
         
-        <a href="../files/app_scripts_contentscript.js.html#l266"><code>app\scripts\contentscript.js:266</code></a>
+        <a href="../files/app_scripts_contentscript.js.html#l281"><code>app\scripts\contentscript.js:281</code></a>
         
         </p>
 
@@ -661,7 +942,7 @@
             
         
         
-        <a href="../files/app_scripts_contentscript.js.html#l277"><code>app\scripts\contentscript.js:277</code></a>
+        <a href="../files/app_scripts_contentscript.js.html#l292"><code>app\scripts\contentscript.js:292</code></a>
         
         </p>
 
@@ -712,7 +993,7 @@
             
         
         
-        <a href="../files/app_scripts_contentscript.js.html#l299"><code>app\scripts\contentscript.js:299</code></a>
+        <a href="../files/app_scripts_contentscript.js.html#l314"><code>app\scripts\contentscript.js:314</code></a>
         
         </p>
 
@@ -763,7 +1044,7 @@
             
         
         
-        <a href="../files/app_scripts_contentscript.js.html#l288"><code>app\scripts\contentscript.js:288</code></a>
+        <a href="../files/app_scripts_contentscript.js.html#l303"><code>app\scripts\contentscript.js:303</code></a>
         
         </p>
 

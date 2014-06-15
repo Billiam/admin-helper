@@ -5,8 +5,8 @@
     describe('Summarize', function () {
         var totals = local(function() {
             return {
-                a: 5,
-                b: 6
+                b: 6,
+                a: 5
             }
         });
 
@@ -45,6 +45,26 @@
                     });
                 });
 
+                context('when unassigned entries exist', function() {
+                    beforeEach(function() {
+                        Summarize._render(emptyTotals(), 2);
+                    });
+
+                    it('adds helper summary to the page', function() {
+                        expect(summary()).not.to.be.null;
+                    });
+
+
+                    it('adds helper before entry element', function() {
+                        expect(summary().nextSibling).to.have.property('id','TSEntryInline');
+                    });
+
+                    it('renders summary data', function() {
+                        expect(summary().innerHTML).to.have.string('Unassigned: <span class="admin_helper_hours">2.00</span>');
+                        expect(summary().getElementsByTagName('li')).to.have.length(0);
+                    });
+                });
+
                 context('when admin entries exist', function() {
                     beforeEach(function() {
                         Summarize._render(totals());
@@ -59,7 +79,7 @@
                     });
 
                     it('renders summary data', function() {
-                        expect(summary().innerHTML).to.have.string('<li>a: <span class="admin_helper_hours">5.00</span></li>');
+                        expect(summary().innerHTML).to.have.string('<li>a: <span class="admin_helper_hours">5.00</span></li><li>b: <span class="admin_helper_hours">6.00</span></li>');
                         expect(summary().getElementsByTagName('li')).to.have.length(2);
                     });
                 });
@@ -81,6 +101,11 @@
                 it('will render data', function() {
                     expect(Summarize._shouldRender(totals())).to.be.true;
                 });
+            });
+            context('with unassigned entries', function() {
+                it('will render unassigned data', function() {
+                    expect(Summarize._shouldRender(emptyTotals(), 1)).to.be.true;
+                })
             });
             context('without valid total data', function() {
                 it('will not render data', function() {
@@ -112,6 +137,30 @@
             })
         });
 
+        describe('._sortTotals', function() {
+            var totals = local(function() {
+                return {
+                    Z: 1,
+                    a: 1,
+                    e: 1,
+                    B: 1
+                };
+            });
+
+            var result = local(function() {
+                return Summarize._sortTotals(totals());
+            });
+
+            it('sorts totals alphabetically', function() {
+                expect(result()).to.eql([
+                    {name: 'a', total: 1},
+                    {name: 'B', total: 1},
+                    {name: 'e', total: 1},
+                    {name: 'Z', total: 1}
+                ]);
+            });
+        });
+
         describe('.run', function() {
             var data = local(function() {
                 var table = document.createElement('table');
@@ -131,13 +180,7 @@
 
             var rows = local(function() {
                 var nodeList = data().getElementsByTagName('tr');
-
-                var result = [];
-                for(var i = 0, l = nodeList.length; i < l; i++) {
-                    result.push(nodeList[i]);
-                }
-
-                return result;
+                return Array.prototype.slice.call(nodeList);
             });
 
             it('renders a single row', function() {
@@ -152,7 +195,7 @@
                 var spy = sinon.stub(Summarize, '_render');
 
                 Summarize.run(rows());
-                expect(spy.firstCall.calledWithExactly({'First Client': 0.75})).to.be.true;
+                expect(spy.firstCall.calledWithExactly({'First Client': 0.75}, 1.25)).to.be.true;
                 spy.restore();
             });
         });

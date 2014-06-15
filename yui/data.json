@@ -2,7 +2,7 @@
     "project": {
         "name": "AdminHelper",
         "description": "Script documentation",
-        "version": "0.0.8",
+        "version": "0.1.0",
         "url": "http://github.com/billiam/admin-helper"
     },
     "files": {
@@ -39,7 +39,7 @@
             "namespaces": {},
             "tag": "module",
             "file": "app\\scripts\\contentscript.js",
-            "line": 412,
+            "line": 491,
             "description": "Admin Helper"
         }
     },
@@ -107,7 +107,7 @@
             "module": "AdminHelper",
             "namespace": "",
             "file": "app\\scripts\\contentscript.js",
-            "line": 224,
+            "line": 239,
             "description": "Admin row highlighter class",
             "static": 1
         },
@@ -122,7 +122,7 @@
             "module": "AdminHelper",
             "namespace": "",
             "file": "app\\scripts\\contentscript.js",
-            "line": 259,
+            "line": 274,
             "description": "Admin time summarizer class",
             "static": 1
         },
@@ -137,7 +137,7 @@
             "module": "AdminHelper",
             "namespace": "",
             "file": "app\\scripts\\contentscript.js",
-            "line": 412,
+            "line": 491,
             "description": "Finds Admin entry rows and delegates actions to provided hooks",
             "static": 1
         }
@@ -356,6 +356,36 @@
         {
             "file": "app\\scripts\\contentscript.js",
             "line": 206,
+            "description": "Render each element in array as a separate template",
+            "itemtype": "method",
+            "name": "renderEach",
+            "params": [
+                {
+                    "name": "template",
+                    "description": "Template",
+                    "type": "String"
+                },
+                {
+                    "name": "items",
+                    "description": "Array of templateable items",
+                    "type": "Object[]"
+                },
+                {
+                    "name": "raw",
+                    "description": "If true, input will not be HTML escaped",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "Template",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 221,
             "description": "Escape an html string",
             "params": [
                 {
@@ -375,7 +405,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 231,
+            "line": 246,
             "description": "Classname to add to highlighted DOM nodes",
             "itemtype": "property",
             "name": "HIGHLIGHT_CLASS",
@@ -388,7 +418,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 242,
+            "line": 257,
             "description": "Apply highlight class to DOM nodes",
             "itemtype": "method",
             "name": "run",
@@ -405,7 +435,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 266,
+            "line": 281,
             "description": "Xpath selector for hour table cells relative to admin entry rows",
             "itemtype": "property",
             "name": "HOUR_CELL",
@@ -418,7 +448,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 277,
+            "line": 292,
             "description": "Xpath selector for comment table cells relative to admin entry rows",
             "itemtype": "property",
             "name": "NOTE_CELL",
@@ -431,7 +461,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 288,
+            "line": 303,
             "description": "Dom node ID to insert output before",
             "itemtype": "property",
             "name": "TARGET_OUTPUT",
@@ -444,7 +474,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 299,
+            "line": 314,
             "description": "Summary output ID",
             "itemtype": "property",
             "name": "OUTPUT_ID",
@@ -457,7 +487,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 310,
+            "line": 325,
             "description": "Total admin entries by note field prefix\n\nRenders output above `TARGET_OUTPUT` node",
             "itemtype": "method",
             "name": "run",
@@ -474,7 +504,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 343,
+            "line": 365,
             "description": "Create a new data object with fixed decimal values",
             "itemtype": "method",
             "name": "_formatTotals",
@@ -503,7 +533,56 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 368,
+            "line": 386,
+            "description": "Sort totals object into alphabetized array of {name: '', total: ##} objects",
+            "itemtype": "method",
+            "name": "_sortTotals",
+            "params": [
+                {
+                    "name": "totals",
+                    "description": "Hour totals object",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Sorted total objects",
+                "type": "Object[]"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 409,
+            "description": "Format an hour as fixed decimals",
+            "itemtype": "method",
+            "name": "_formatHour",
+            "params": [
+                {
+                    "name": "hour",
+                    "description": "Hour to format",
+                    "type": "Number"
+                },
+                {
+                    "name": "decimals",
+                    "description": "Number of displayed decimals",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "private",
+            "tagname": "",
+            "class": "Summarize",
+            "module": "AdminHelper"
+        },
+        {
+            "file": "app\\scripts\\contentscript.js",
+            "line": 430,
             "description": "Whether total summary data should be rendered on the page",
             "itemtype": "method",
             "name": "_shouldRender",
@@ -512,6 +591,11 @@
                     "name": "totals",
                     "description": "",
                     "type": "Object"
+                },
+                {
+                    "name": "unlabeled",
+                    "description": "",
+                    "type": "Number"
                 }
             ],
             "return": {
@@ -525,7 +609,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 386,
+            "line": 453,
             "description": "Generate HTML for hour output and insert into the DOM",
             "itemtype": "method",
             "name": "_render",
@@ -534,6 +618,11 @@
                     "name": "totals",
                     "description": "Summarized data as a `type`: `hours` object",
                     "type": "Object"
+                },
+                {
+                    "name": "unlabeled",
+                    "description": "Total of unlabeled admin entries",
+                    "type": "Number"
                 }
             ],
             "access": "private",
@@ -544,20 +633,20 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 419,
+            "line": 498,
             "description": "Xpath query for admin rows",
             "itemtype": "property",
             "name": "ADMIN_ROWS",
             "type": "String",
             "static": 1,
             "final": 1,
-            "default": "'//tr[td[@class='project']/span[text()='ADMIN']]'",
+            "default": "'//tr[td[contains(@class, \"project\")]/span[text()=\"ADMIN\"]][td[contains(@class, \"client\")]//*[text()=\"SIERRA\"]]'",
             "class": "AdminHelper",
             "module": "AdminHelper"
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 430,
+            "line": 509,
             "description": "Admin helper initialization",
             "itemtype": "method",
             "name": "init",
@@ -573,7 +662,7 @@
         },
         {
             "file": "app\\scripts\\contentscript.js",
-            "line": 440,
+            "line": 519,
             "description": "Admin row iteration, delegate to provided hooks",
             "itemtype": "method",
             "name": "_iterateRows",
@@ -597,19 +686,27 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " app\\scripts\\contentscript.js:206"
+            "line": " app\\scripts\\contentscript.js:221"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " app\\scripts\\contentscript.js:343"
+            "line": " app\\scripts\\contentscript.js:365"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " app\\scripts\\contentscript.js:368"
+            "line": " app\\scripts\\contentscript.js:386"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app\\scripts\\contentscript.js:409"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " app\\scripts\\contentscript.js:430"
         },
         {
             "message": "Missing item type\nEscape an html string",
-            "line": " app\\scripts\\contentscript.js:206"
+            "line": " app\\scripts\\contentscript.js:221"
         }
     ]
 }
