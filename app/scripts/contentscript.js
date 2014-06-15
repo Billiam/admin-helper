@@ -317,25 +317,32 @@ var Summarize = {
      * @chainable
      */
     run: function(rows) {
+        var noteNode, label, hours, hourNode;
+
         var totals = {};
+        var unlabeled = 0.0;
+
         var self = this;
 
         rows.forEach(function(row) {
-            var noteNode = Xpath.find(self.NOTE_CELL, row);
-            var label = noteNode.textContent.match(/(.+?): .+/);
+            noteNode = Xpath.find(self.NOTE_CELL, row);
+            label = noteNode.textContent.match(/(.+?): .+/);
+
+            hourNode = Xpath.find(self.HOUR_CELL, row);
+            hours = hourNode.textContent * 1;
 
             if (label) {
-                var hourNode = Xpath.find(self.HOUR_CELL, row);
-                var hours = hourNode.textContent * 1;
                 if (totals[label[1]] === undefined) {
                     totals[label[1]] = 0;
                 }
 
                 totals[label[1]] += hours;
+            } else {
+                unlabeled += hours;
             }
         });
 
-        this._render(totals);
+        this._render(totals, unlabeled);
 
         return this;
     },
@@ -350,19 +357,37 @@ var Summarize = {
      * @private
      */
     _formatTotals: function(totals, decimals) {
-        if (decimals === undefined) {
-            decimals = 2;
-        }
-
         var formattedTotals = {};
 
         for(var key in totals) {
             if (totals.hasOwnProperty(key)) {
-                formattedTotals[key] = totals[key].toFixed(decimals);
+                formattedTotals[key] = this._formatHour(totals[key], decimals);
             }
         }
 
         return formattedTotals;
+    },
+
+
+    /**
+     * Format an hour as fixed decimals
+     *
+     * @method _formatHour
+     * @param {Number} hour Hour to format
+     * @param {Number} decimals Number of displayed decimals
+     * @returns {string}
+     * @private
+     */
+    _formatHour: function(hour, decimals) {
+        if (hour == null) {
+            hour = 0;
+        }
+
+        if (decimals == null) {
+            decimals = 2;
+        }
+
+        return hour.toFixed(decimals);
     },
 
     /**
@@ -370,10 +395,15 @@ var Summarize = {
      *
      * @method _shouldRender
      * @param {Object} totals
+     * @param {Number} unlabeled
      * @returns {Boolean}
      * @private
      */
-    _shouldRender: function(totals) {
+    _shouldRender: function(totals, unlabeled) {
+        if (unlabeled > 0) {
+            return true;
+        }
+
         for(var item in totals) {
             if (Object.prototype.hasOwnProperty.call(totals, item)) {
                 return true;
@@ -388,20 +418,32 @@ var Summarize = {
      *
      * @method _render
      * @param {Object} totals Summarized data as a `type`: `hours` object
+     * @param {Number} unlabeled Total of unlabeled admin entries
      * @private
      * @chainable
      */
-    _render: function(totals) {
+    _render: function(totals, unlabeled) {
+        var summary, formattedTotals, formattedUnlabeled;
         var entries = document.getElementById(this.TARGET_OUTPUT);
 
-        if(entries && this._shouldRender(totals)) {
-            var summary = document.createElement('div');
-            summary.setAttribute('id', this.OUTPUT_ID);
-            var formattedTotals = this._formatTotals(totals);
+        if(entries && this._shouldRender(totals, unlabeled)) {
 
-            summary.innerHTML = Template.render('<ul>{items}</ul>', {
-                items: Template.renderObject('<li>{key}: <span class="admin_helper_hours">{value}</span>', formattedTotals)
-            }, true);
+            summary = document.createElement('div');
+            summary.setAttribute('id', this.OUTPUT_ID);
+            formattedTotals = this._formatTotals(totals);
+            formattedUnlabeled = this._formatHour(unlabeled);
+
+            summary.innerHTML = Template.render(
+                '<h3 title="ADMIN entries without recognized prefixes">' +
+                'Unassigned: <span class="admin_helper_hours">{unlabeled}</span>' +
+                '</h3>' +
+                '<ul>{items}</ul>',
+                {
+                    unlabeled: formattedUnlabeled,
+                    items: Template.renderObject('<li>{key}: <span class="admin_helper_hours">{value}</span>', formattedTotals)
+                },
+                true
+            );
 
             entries.parentNode.insertBefore(summary, entries);
         }
@@ -423,9 +465,9 @@ var AdminHelper = {
      * @type String
      * @static
      * @final
-     * @default '//tr[td[@class='project']/span[text()='ADMIN']]'
+     * @default '//tr[td[contains(@class, "project")]/span[text()="ADMIN"]][td[contains(@class, "client")]//*[text()="SIERRA"]]'
      */
-    ADMIN_ROWS: '//tr[td[contains(@class, "project")]/span[text()="ADMIN"]]',
+    ADMIN_ROWS: '//tr[td[contains(@class, "project")]/span[text()="ADMIN"]][td[contains(@class, "client")]//*[text()="SIERRA"]]',
 
     /**
      * Admin helper initialization

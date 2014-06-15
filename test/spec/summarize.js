@@ -45,6 +45,26 @@
                     });
                 });
 
+                context('when unassigned entries exist', function() {
+                    beforeEach(function() {
+                        Summarize._render(emptyTotals(), 2);
+                    });
+
+                    it('adds helper summary to the page', function() {
+                        expect(summary()).not.to.be.null;
+                    });
+
+
+                    it('adds helper before entry element', function() {
+                        expect(summary().nextSibling).to.have.property('id','TSEntryInline');
+                    });
+
+                    it('renders summary data', function() {
+                        expect(summary().innerHTML).to.have.string('Unassigned: <span class="admin_helper_hours">2.00</span>');
+                        expect(summary().getElementsByTagName('li')).to.have.length(0);
+                    });
+                });
+
                 context('when admin entries exist', function() {
                     beforeEach(function() {
                         Summarize._render(totals());
@@ -81,6 +101,11 @@
                 it('will render data', function() {
                     expect(Summarize._shouldRender(totals())).to.be.true;
                 });
+            });
+            context('with unassigned entries', function() {
+                it('will render unassigned data', function() {
+                    expect(Summarize._shouldRender(emptyTotals(), 1)).to.be.true;
+                })
             });
             context('without valid total data', function() {
                 it('will not render data', function() {
@@ -131,13 +156,7 @@
 
             var rows = local(function() {
                 var nodeList = data().getElementsByTagName('tr');
-
-                var result = [];
-                for(var i = 0, l = nodeList.length; i < l; i++) {
-                    result.push(nodeList[i]);
-                }
-
-                return result;
+                return Array.prototype.slice.call(nodeList);
             });
 
             it('renders a single row', function() {
@@ -152,7 +171,7 @@
                 var spy = sinon.stub(Summarize, '_render');
 
                 Summarize.run(rows());
-                expect(spy.firstCall.calledWithExactly({'First Client': 0.75})).to.be.true;
+                expect(spy.firstCall.calledWithExactly({'First Client': 0.75}, 1.25)).to.be.true;
                 spy.restore();
             });
         });
