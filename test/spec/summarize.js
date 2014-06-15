@@ -45,6 +45,26 @@
                     });
                 });
 
+                context('when unassigned entries exist', function() {
+                    beforeEach(function() {
+                        Summarize._render(emptyTotals(), 2);
+                    });
+
+                    it('adds helper summary to the page', function() {
+                        expect(summary()).not.to.be.null;
+                    });
+
+
+                    it('adds helper before entry element', function() {
+                        expect(summary().nextSibling).to.have.property('id','TSEntryInline');
+                    });
+
+                    it('renders summary data', function() {
+                        expect(summary().innerHTML).to.have.string('Unassigned: <span class="admin_helper_hours">2.00</span>');
+                        expect(summary().getElementsByTagName('li')).to.have.length(0);
+                    });
+                });
+
                 context('when admin entries exist', function() {
                     beforeEach(function() {
                         Summarize._render(totals());
