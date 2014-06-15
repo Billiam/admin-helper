@@ -5,8 +5,8 @@
     describe('Summarize', function () {
         var totals = local(function() {
             return {
-                a: 5,
-                b: 6
+                b: 6,
+                a: 5
             }
         });
 
@@ -79,7 +79,7 @@
                     });
 
                     it('renders summary data', function() {
-                        expect(summary().innerHTML).to.have.string('<li>a: <span class="admin_helper_hours">5.00</span></li>');
+                        expect(summary().innerHTML).to.have.string('<li>a: <span class="admin_helper_hours">5.00</span></li><li>b: <span class="admin_helper_hours">6.00</span></li>');
                         expect(summary().getElementsByTagName('li')).to.have.length(2);
                     });
                 });
@@ -135,6 +135,30 @@
                     expect(result().a).to.eql('5.000000000');
                 });
             })
+        });
+
+        describe('._sortTotals', function() {
+            var totals = local(function() {
+                return {
+                    Z: 1,
+                    a: 1,
+                    e: 1,
+                    B: 1
+                };
+            });
+
+            var result = local(function() {
+                return Summarize._sortTotals(totals());
+            });
+
+            it('sorts totals alphabetically', function() {
+                expect(result()).to.eql([
+                    {name: 'a', total: 1},
+                    {name: 'B', total: 1},
+                    {name: 'e', total: 1},
+                    {name: 'Z', total: 1}
+                ]);
+            });
         });
 
         describe('.run', function() {
