@@ -36,14 +36,14 @@ SpecFixtures.ADMIN_ROWS = '<tr class="entry_row">\
 </tr>\
 <tr class="entry_row">\
     <td class="day">Friday</td>\
-    <td class="start_time">05:00PM</td>\
-    <td class="end_time">05:45PM</td>\
-    <td class="hours noneditable">0.75</td>\
+    <td class="start_time">04:30PM</td>\
+    <td class="end_time">05:00PM</td>\
+    <td class="hours noneditable">0.5</td>\
     <td class="client"><span><a href="/page.php?id=SIERRA">SIERRA</a></span></td>\
     <td class="project">\
         <span>ADMIN</span>\
     </td>\
-    <td class="notes">First Client: Meeting with client to discuss future feature set.</td>\
+    <td class="notes">Unassigned meetings</td>\
     <td class="wd_actions noneditable">\
         <a name="user*111"></a>\
         <input type="hidden" name="id" value="user*111">\
@@ -58,6 +58,40 @@ SpecFixtures.ADMIN_ROWS = '<tr class="entry_row">\
             </a>\
             <div class="flag_wrap editing_entry">\
                 <input type="checkbox" id="flag_ck_user*111" name="flag_entry" value="Y" class="flag_entry_submit" title="Flagged Entry">\
+            </div>\
+            <a href="#" class="save_entry editing_entry" title="Save Entry">\
+                <img border="0" src="assets/images/design/icons/fugue/tick-button.png" width="16" height="16">\
+            </a>\
+            <a href="#" class="cancel_edit editing_entry" title="Cancel">\
+                <img border="0" src="assets/images/design/icons/fugue/cross-button.png" width="16" height="16">\
+            </a>\
+        </div>\
+    </td>\
+</tr>\
+<tr class="entry_row">\
+    <td class="day">Friday</td>\
+    <td class="start_time">05:00PM</td>\
+    <td class="end_time">05:45PM</td>\
+    <td class="hours noneditable">0.75</td>\
+    <td class="client"><span><a href="/page.php?id=SIERRA">SIERRA</a></span></td>\
+    <td class="project">\
+        <span>ADMIN</span>\
+    </td>\
+    <td class="notes">First Client: Meeting with client to discuss future feature set.</td>\
+    <td class="wd_actions noneditable">\
+        <a name="user*110"></a>\
+        <input type="hidden" name="id" value="user*110">\
+        <input type="hidden" name="week_ending" value="02/21/14">\
+        <input type="hidden" name="ts_user" value="user">\
+        <div class="wd_actions_wrap">\
+            <a href="#" class="edit_entry viewing_entry" title="Edit Entry">\
+                <img border="0" src="assets/images/design/icons/fugue/pencil.png" width="16" height="16">\
+            </a>\
+            <a href="javascript: deleteRow(\'02/21/14\', \'user*110\')" class="delete_entry viewing_entry" title="Delete Entry">\
+                <img border="0" width="16" height="16" src="assets/images/design_v2/tables/wd-remove-entry.png">\
+            </a>\
+            <div class="flag_wrap editing_entry">\
+                <input type="checkbox" id="flag_ck_user*110" name="flag_entry" value="Y" class="flag_entry_submit" title="Flagged Entry">\
             </div>\
             <a href="#" class="save_entry editing_entry" title="Save Entry">\
                 <img border="0" src="assets/images/design/icons/fugue/tick-button.png" width="16" height="16">\

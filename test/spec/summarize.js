@@ -82,6 +82,11 @@
                     expect(Summarize._shouldRender(totals())).to.be.true;
                 });
             });
+            context('with unassigned entries', function() {
+                it('will render unassigned data', function() {
+                    expect(Summarize._shouldRender(emptyTotals(), 1)).to.be.true;
+                })
+            });
             context('without valid total data', function() {
                 it('will not render data', function() {
                     expect(Summarize._shouldRender(emptyTotals())).to.be.false;
@@ -131,13 +136,7 @@
 
             var rows = local(function() {
                 var nodeList = data().getElementsByTagName('tr');
-
-                var result = [];
-                for(var i = 0, l = nodeList.length; i < l; i++) {
-                    result.push(nodeList[i]);
-                }
-
-                return result;
+                return Array.prototype.slice.call(nodeList);
             });
 
             it('renders a single row', function() {
@@ -152,7 +151,7 @@
                 var spy = sinon.stub(Summarize, '_render');
 
                 Summarize.run(rows());
-                expect(spy.firstCall.calledWithExactly({'First Client': 0.75})).to.be.true;
+                expect(spy.firstCall.calledWithExactly({'First Client': 0.75}, 1.25)).to.be.true;
                 spy.restore();
             });
         });

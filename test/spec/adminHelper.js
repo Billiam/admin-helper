@@ -37,7 +37,6 @@
 
                 it('passes admin rows to provided classes', function() {
                     var result = spy().firstCall.args[0].all();
-
                     expect(result[0]).to.have.property('tagName', 'TR');
                 });
             });
