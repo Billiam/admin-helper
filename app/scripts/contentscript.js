@@ -204,6 +204,21 @@ var Template = {
     },
 
     /**
+     * Render each element in array as a separate template
+     *
+     * @method renderEach
+     * @param {String} template Template
+     * @param {Object[]} items Array of templateable items
+     * @param {Boolean} raw If true, input will not be HTML escaped
+     * @return {String}
+     */
+    renderEach: function(template, items, raw) {
+        return items.reduce(function(output, element) {
+            return output + Template.render(template, element, raw);
+        }, '');
+    },
+
+    /**
      * Escape an html string
      *
      * @param {String} html
@@ -368,6 +383,28 @@ var Summarize = {
         return formattedTotals;
     },
 
+    /**
+     * Sort totals object into alphabetized array of {name: '', total: ##} objects
+     *
+     * @method _sortTotals
+     * @param {Object} totals Hour totals object
+     * @returns {Object[]} Sorted total objects
+     * @private
+     */
+    _sortTotals: function(totals) {
+        var sorted = [];
+        for(var key in totals) {
+            if (totals.hasOwnProperty(key)) {
+                sorted.push({name: key, total: totals[key]});
+            }
+        }
+
+        sorted.sort(function(a, b) {
+            return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+        });
+
+        return sorted;
+    },
 
     /**
      * Format an hour as fixed decimals
@@ -427,11 +464,11 @@ var Summarize = {
         var entries = document.getElementById(this.TARGET_OUTPUT);
 
         if(entries && this._shouldRender(totals, unlabeled)) {
+            formattedTotals = this._sortTotals(this._formatTotals(totals));
+            formattedUnlabeled = this._formatHour(unlabeled);
 
             summary = document.createElement('div');
             summary.setAttribute('id', this.OUTPUT_ID);
-            formattedTotals = this._formatTotals(totals);
-            formattedUnlabeled = this._formatHour(unlabeled);
 
             summary.innerHTML = Template.render(
                 '<h3 title="ADMIN entries without recognized prefixes">' +
@@ -440,7 +477,7 @@ var Summarize = {
                 '<ul>{items}</ul>',
                 {
                     unlabeled: formattedUnlabeled,
-                    items: Template.renderObject('<li>{key}: <span class="admin_helper_hours">{value}</span>', formattedTotals)
+                    items: Template.renderEach('<li>{name}: <span class="admin_helper_hours">{total}</span>', formattedTotals)
                 },
                 true
             );
